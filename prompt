@@ -1,0 +1,5 @@
+scl enable devtoolset-8 bash  #切换GCC版本 Software Collections
+
+g++ test.cc log.cc level.cpp -o test.out -std=c++11 -pthread -g 
+
+	g++ $^ -o $@  -std=c++11 -pthread -g 
