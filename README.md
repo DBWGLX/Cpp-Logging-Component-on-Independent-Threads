@@ -1,3 +1,7 @@
+![REPO SIZE](https://img.shields.io/github/repo-size/DBWGLX/Cpp-Logging-Component-on-Independent-Threads.svg)
+![CODE SIZE](https://img.shields.io/github/languages/code-size/DBWGLX/Cpp-Logging-Component-on-Independent-Threads.svg)
+![License](https://img.shields.io/github/license/DBWGLX/Cpp-Logging-Component-on-Independent-Threads.svg)
+
 # 独立线程异步写日志组件
 
 ### 日志效果
