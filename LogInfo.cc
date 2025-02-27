@@ -1,4 +1,4 @@
-#include "logInfo.hpp"
+#include "LogInfo.hpp"
 
 // 2025-01-17 12:38:02 [WARN][427908][main.cc:15] 开始循环
 dbwg::LogInfo::LogInfo(std::string message,dbwg::level::level levl,const char* file, int line)

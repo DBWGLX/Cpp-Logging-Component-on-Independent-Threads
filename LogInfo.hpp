@@ -6,7 +6,7 @@
 #include <string>
 #include <cstdlib>
 #include <unistd.h>
-#include "level.hpp"
+#include "Level.hpp"
 #include "utils.hpp"
 #endif
 
@@ -14,7 +14,8 @@ namespace dbwg{
     class LogInfo{
     public:
         // 2025-01-17 12:38:02 [WARN][427908][main.cc:15] 开始循环
-        LogInfo(std::string message = "",level::level levl = level::DEBUG,const char* file = __FILE__, int line = __LINE__);
+        LogInfo(std::string message = "",level::level levl = level::DEBUG,
+            const char* file = __FILE__, int line = __LINE__);
         //组织为字符串
         std::string logFormat();
     private:

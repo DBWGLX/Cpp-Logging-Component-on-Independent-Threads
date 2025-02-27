@@ -1,7 +1,7 @@
 #pragma once
-#include "level.hpp"//日志等级
-#include "logInfo.hpp"//日志体
-#include "logSink.hpp"//日志写
+#include "Level.hpp"//日志等级
+#include "LogInfo.hpp"//日志体
+#include "LogSink.hpp"//日志写
 #include "utils.hpp"//工具函数
 #include <cstdarg>
 

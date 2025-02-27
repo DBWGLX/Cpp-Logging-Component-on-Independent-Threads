@@ -1,4 +1,4 @@
-#这里记录一些用过的指令
+# 记录一些指令
 
 scl enable devtoolset-8 bash  #切换GCC版本 Software Collections
 

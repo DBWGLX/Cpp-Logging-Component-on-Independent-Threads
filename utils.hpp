@@ -29,7 +29,7 @@ namespace dbwg{
                 if(::mkdir(pathname.c_str(),mode)==0)
                     return 0;
                 else{
-                    if (errno == EEXIST)
+                    if (errno == EEXIST)//已存在
                         return 0;
                     perror("mkdir failed");      
                 }
