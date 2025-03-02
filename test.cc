@@ -6,8 +6,6 @@ using namespace dbwg;
 
 int main(){
     LOG("程序启动");
-    LogStarter::start();
-
 
     while(1){
         LOG1("现在程序C开始运行");

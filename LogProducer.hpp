@@ -24,7 +24,7 @@ namespace dbwg{
         private:
             std::queue<T>_queue;
             std::mutex _mutex;
-    }
+    };
 }
 
 #endif

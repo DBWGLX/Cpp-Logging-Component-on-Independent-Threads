@@ -9,8 +9,8 @@ namespace dbwg{
     class DoubleBuffer{
     public:
         DoubleBuffer(size_t size = 1024)
-            : _produce_lb(std::make_shared<char[]>(size))
-              _consume_lb(std::make_shared<char[]>(size))
+            : buff1(std::make_shared<char[]>(size)),
+              buff2(std::make_shared<char[]>(size)),
               _size(size){}
         ~DoubleBuffer() = default;
         std::shared_ptr<char[]> getBuffer1(){
@@ -20,10 +20,12 @@ namespace dbwg{
             return buff2;
         }
         void swap(){
-            std::swap(_produce_lb,_consume_lb);
+            std::swap(buff1,buff2);
         }
         void clearBuffer2(){
-            buff2[0] = '\0';
+            if(buff2){
+                buff2.get()[0] = '\0';
+            }
         }
         size_t size(){
             return _size;
@@ -31,8 +33,8 @@ namespace dbwg{
     private:
         std::shared_ptr<char[]> buff1;//生产者
         std::shared_ptr<char[]> buff2;//消费者
-        size_t _size();
-    }
+        size_t _size;
+    };
 }
 
 #endif

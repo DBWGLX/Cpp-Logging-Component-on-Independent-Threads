@@ -1,6 +1,7 @@
 #ifndef DBWGLX_LOG_ROLLFILE
 #define DBWGLX_LOG_ROLLFILE
 #include <iostream>
+#include <vector>
 #include <cassert>
 #include "utils.hpp"
 
@@ -8,12 +9,12 @@
 //滚动文件
 //存文件名，一次只返回一个FILE*
 namespace dbwg{
-    class FilesRoller(){
+    class FilesRoller{
     public:
-        RollFile(int size = 10)
-            : rfns(vector<int>(size)),rp(0) {}
+        FilesRoller(int size = 10)
+            : rfns(std::vector<std::string>(size)),rp(0) {}
 
-        FILE* dbwg::LogStarter::roll_file(){
+        FILE* roll_file(){
             //先删除下一个位置的原先文件，然后新建文件
             rp = (rp+1)%rfns.size();
             if(remove(rfns[rp].c_str())&&errno != ENOENT){
@@ -28,7 +29,7 @@ namespace dbwg{
     private:
         std::vector<std::string>rfns;//roll-file-names
         int rp;//rfns' current index
-    }
+    };
 }
 
 #endif
