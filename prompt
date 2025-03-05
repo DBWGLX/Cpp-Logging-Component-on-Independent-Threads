@@ -1,8 +1,10 @@
 # 记录一些指令
 
-scl enable devtoolset-8 bash  #切换GCC版本 Software Collections
+#切换GCC版本 Software Collections
+scl enable devtoolset-8 bash  
 
 g++ test.cc log.cc level.cpp -o test.out -std=c++11 -pthread -g 
 
-eval $(ssh-agent -s) # 启动ssh代理
+# 启动ssh代理
+eval $(ssh-agent -s) 
 

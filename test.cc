@@ -6,11 +6,9 @@ using namespace dbwg;
 
 int main(){
     LOG("程序启动");
-
+    int count = 1;
     while(1){
-        LOG1("现在程序C开始运行");
-        LOG1("🤓🤓🌹");
-        LOG1("[模拟]程序A出现了错误B");
+        LOG1("模拟日志，日志序号"+std::to_string(count++)+"🤓🌹⭐");
     }
     return 0;
 }

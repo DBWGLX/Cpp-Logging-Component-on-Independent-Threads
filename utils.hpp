@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 #include <sstream>
+#include <iomanip>//manipulate
 #include <sys/stat.h>
 #include <stdio.h>
 #endif
@@ -17,11 +18,11 @@ namespace dbwg{
                 std::tm* local_tm = std::localtime(&now);
                 std::stringstream str;
                 str << (local_tm->tm_year+1900) << "-"
-                    << (local_tm->tm_mon + 1) << "-"
-                    << local_tm->tm_mday << " "
-                    << local_tm->tm_hour << ":"
-                    << local_tm->tm_min << ":"
-                    << local_tm->tm_sec;
+                    << std::setw(2) << std::setfill('0') << (local_tm->tm_mon + 1) << "-"
+                    << std::setw(2) << std::setfill('0') << local_tm->tm_mday << " "
+                    << std::setw(2) << std::setfill('0') << local_tm->tm_hour << ":"
+                    << std::setw(2) << std::setfill('0') << local_tm->tm_min << ":"
+                    << std::setw(2) << std::setfill('0') << local_tm->tm_sec;
                 return str.str();
             }
             //创建目录 "./dir"
