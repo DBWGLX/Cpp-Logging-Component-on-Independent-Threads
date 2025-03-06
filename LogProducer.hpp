@@ -5,27 +5,22 @@
 #include <queue>
 
 namespace dbwg{
+    //任务队列
     template<class T>
     class LogProducer{
         public:
             void push(T aim){
                 std::lock_guard<std::mutex>guard(_mutex);
-                std::cout << "【DEBUG】Pushing element with address: " << &aim << std::endl;
-                printf("[push] %s",aim.logFormat().c_str());
                 _queue.push(aim);
             }
             T pop(){
-                printf("【DEBUG】pop\n");
                 std::lock_guard<std::mutex>guard(_mutex);
                 if(_queue.size()<=0){
                     perror("[LogProducer][ERROR] 队列空仍pop\n");
                     return {};
                 }else{
                     T ret = _queue.front();
-                    std::cout << "【DEBUG】Popping element with address: " << &ret << std::endl;
-                    printf("【DEBUG】成功获取front: %s，queue.size(): %d\n",ret.logFormat().c_str(),_queue.size());
                     _queue.pop();
-                    printf("【DEBUG】成功 pop\n");
                     return ret;
                 }
             }

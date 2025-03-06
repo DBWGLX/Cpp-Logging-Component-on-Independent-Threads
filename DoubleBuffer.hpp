@@ -9,12 +9,14 @@
 namespace dbwg{
     class DoubleBuffer{
     public:
-        DoubleBuffer(size_t size = 1024)
+        DoubleBuffer(size_t size = 2048)
             : producer_idx(0),
               _size(size)
         {
-            buffers[0] = std::make_shared<char[]>(size),
-            buffers[1] = std::make_shared<char[]>(size),
+            //在 C++17 及以后的标准中，std::make_shared 不能直接用于创建 std::shared_ptr<char[]> 这种动态数组类型的智能指针，因为 std::make_shared 主要设计用于创建单个对象，而不是数组。
+            //内存释放时会使用delete而非delete[]，造成未定义行为（如double free或堆损坏）。
+            buffers[0] = std::shared_ptr<char[]>(new char[size], std::default_delete<char[]>());
+            buffers[1] = std::shared_ptr<char[]>(new char[size], std::default_delete<char[]>());
             clearBuffer2();
         }
         ~DoubleBuffer() = default;
@@ -25,27 +27,23 @@ namespace dbwg{
             return buffers[1-producer_idx.load()];
         }
         void swap(){
-            printf("[DoubleBuffer] swapping, p_idx: %d\n",producer_idx.load());
             producer_idx.store(1-producer_idx.load());
             buff2IsClear = 0;
-            printf("[DoubleBuffer] swapping down, p_idx: %d\n",producer_idx.load());
         }
         void clearBuffer2(){
             if(getBuffer2().get()){
                 getBuffer2().get()[0] = '\0';
                 buff2IsClear = 1;
             }else{
-                printf("[DoubleBuffer] buff2 error\n");
+                perror("[DoubleBuffer] buff2 error\n");
             }
-            printf("[DoubleBuffer::clearBuffer2] buff2IsClear: %d\n",buff2IsClear);
         }
         //bool isBuffer2Clear(){
         bool isBuffer2Clear(){
-            printf("[DoubleBuffer] buff2IsClear: %d\n",buff2IsClear);
             if(buffers[1-producer_idx.load()].get()){
                 return buff2IsClear;
             }else{
-                printf("[DoubleBuffer::buffer2IsClear] buff2 error\n");
+                perror("[DoubleBuffer::buffer2IsClear] buff2 error\n");
             }
             return false;
         }

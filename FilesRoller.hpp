@@ -17,7 +17,6 @@ namespace dbwg{
         FILE* roll_file(){
             //先删除下一个位置的原先文件，然后新建文件
             rp = (rp+1)%rfns.size();
-            printf("[FilesRoller] rp: %d ,size: %d\n",rp,rfns[rp].size());
             if(rfns[rp].size()>0&&remove(rfns[rp].c_str())&&errno != ENOENT){
                 perror("[roll_file] 文件删除失败");
                 exit(0);
