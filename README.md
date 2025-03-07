@@ -29,11 +29,13 @@
 
 1. `LOG(fmt, ...)` 可以向终端打印信息格式化信息
 
-2. 程序开始时执行 `dbwg::LogStarter::start();` 后启动一个独立线程用于写日志。<br>
-通过调用 `LOG1(message)` 可以把字符串message日志打印到 log 目录下。<br>
-日志文件自动创建，文件名为创建时间。文件为滚动文件的形式。<br>
-单个文件默认大小在logSink.cc里设置宏 MAX_LOG_FILE_SIZE。<br>
-默认10个文件，第十一个会覆盖第一个，以此类推。<br>
+debug()/info()/warn()/error()/fatal() 可以把c可变参数格式日志打印到 log 目录下。
+
+debug_str()/info_str()/warn_str()/error_str()/fatal_str() 适配std::string
+
+2. 日志文件自动创建，文件名为创建时间。文件为滚动文件的形式。<br>
+双缓冲区的每个大小，日志文件数目上限，日志文件大小默认大小在**logStarter.hpp**里设置宏即可调整。<br>
+默认1024字节缓冲区，1024个文件，日志文件一百万字节。程序每次运行会重新计数日志数目，达到上限后，最新的会覆盖最旧的。<br>
 
 
 ---
@@ -41,10 +43,11 @@
 ### 项目结构介绍
 
 - **dbwg.log.h** 总文件，会包含其他子文件，使用本项目时只需包含这个文件即可使用。
-- **logInfo.hpp** 日志信息类
-- **logSink.hpp** 日志落地类
-- **level.cpp** 日志等级
-- **ring.hpp** 缓冲区，环形队列
+- **LogInfo.hpp** 日志信息类
+- **Level.hpp** 日志等级
+- **LogStarter.hpp** 日志落地类
+- **DoubleBuffer.hpp** 双缓冲区
+- **FilesRoller.hpp** 滚动文件设计
 - **utils.cpp** 工具函数
 
 
