@@ -32,7 +32,6 @@ void dbwg::LogStarter::threadFunction_consumer(){
             cv2.wait(lock,[&]{return double_log_buffer.isBuffer1Full() || !logThreadisRunning;});//存在【虚假唤醒】：以确保线程不会因为等待条件变量而无限期地阻塞，错过一些重要的系统事件。
         }
         double_log_buffer.swap();
-        double_log_buffer.clearBuffer1();
         notify_producer();
 
         int rs = fprintf(file.get(), "%s",double_log_buffer.getBuffer2().get());
@@ -72,6 +71,7 @@ dbwg::LogStarter::LogStarter(int buf_size,int roll_size,int log_file_size)
 }
 dbwg::LogStarter::~LogStarter(){
     logThreadisRunning = false;
+    notify_consumer();
     if(logThread.joinable()){
         logThread.join();
     }
@@ -91,6 +91,7 @@ void dbwg::LogStarter::notify_producer(){
     cv1.notify_one();
 }
 void dbwg::LogStarter::notify_consumer(){
+    double_log_buffer.buffer1IsFull();
     cv2.notify_one();
 }
 
