@@ -21,7 +21,7 @@ namespace dbwg{
                 perror("[roll_file] 文件删除失败");
                 exit(0);
             }
-            rfns[rp] = "./log/LOGFILE " + dbwg::utils::now() + ".log";
+            rfns[rp] = "./log/LOGFILE_" + std::to_string(rp) + dbwg::utils::now() + ".log";
             FILE* ret = fopen(rfns[rp].c_str(),"a");
             if(ret == nullptr){
                 perror("[FilesRoller] file open \n");
