@@ -10,8 +10,9 @@ int main(){
     int count = 1;
     clock_t ct = clock();
 
-    while(count <= 1000000){
-        LOG1("模拟日志，日志序号"+std::to_string(count++)+"🤓🌹⭐");
+    while(count <= 100){
+        //debug_str("模拟日志，日志序号"+std::to_string(count++)+"🤓🌹⭐");
+        fatal("haha %d",count);
     }
     
     ct = clock() -ct;
