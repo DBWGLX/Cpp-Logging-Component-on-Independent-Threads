@@ -16,7 +16,7 @@
 #include "LogProducer.hpp"
 
 #define BUFF_SIZE 1024  /*缓冲区大小*/
-#define ROLL_FIlES 10  /*滚动文件数目*/
+#define ROLL_FIlES 1024  /*滚动文件数目*/
 #define LOG_FILE_SIZE 10000000  /*日志文件大小*/
 
 
@@ -26,7 +26,8 @@ namespace dbwg{
         //构造时会创建线程方法
         LogStarter(int buf_size = BUFF_SIZE/*缓冲区大小*/,
             int roll_size = ROLL_FIlES/*滚动文件数目*/,int log_file_size = LOG_FILE_SIZE/*日志文件大小*/);
-        
+        ~LogStarter();
+
         static bool isRunning();
         static LogStarter& instance();
         
@@ -42,10 +43,11 @@ namespace dbwg{
         void notify_producer();//唤醒等待进程
         void notify_consumer();
 
-        //生产者
+        //生产者锁
         std::mutex logMutex1;
         std::condition_variable cv1;//条件变量，日志阻塞写
-        //消费者线程的条件变量
+        //消费者线程
+        std::thread logThread;
         std::mutex logMutex2;
         std::condition_variable cv2;//条件变量，日志阻塞写
         //任务队列

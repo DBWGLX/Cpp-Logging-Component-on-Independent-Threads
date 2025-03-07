@@ -60,15 +60,20 @@ dbwg::LogStarter::LogStarter(int buf_size,int roll_size,int log_file_size)
         //启动线程
         LogStarter::logThreadisRunning = true;
 
-        std::thread logThread(&LogStarter::threadFunction_consumer,this);
+        logThread = std::thread(&LogStarter::threadFunction_consumer,this);
         if (!logThread.joinable()) {
             LogStarter::logThreadisRunning = false;
             logThread.join(); // 确保之前创建的线程正常结束
             return;
         }
-        logThread.detach();
 
         printf("[LogStarter] LogStarter starts\n");
+    }
+}
+dbwg::LogStarter::~LogStarter(){
+    logThreadisRunning = false;
+    if(logThread.joinable()){
+        logThread.join();
     }
 }
 
