@@ -6,20 +6,23 @@
 
 #### 本组件异步：
 
-![image](https://github.com/user-attachments/assets/2a549505-a6c7-4cb6-b3a2-5b431247191c)
+![image](https://github.com/user-attachments/assets/6540ab35-d970-4ad5-9eb3-168331f320f1)
 
-**日志落地墙上时间**（实际经过的物理时间） 10s （第一个日志和最后一个日志相差）
+**日志落地墙上时间**（实际经过的物理时间） 5s （第一个日志和最后一个日志相差）
 
-主线程耗时 5.8s
-
-本组件是按双缓冲区写，及时fflush缓冲区的，尽可能增加写的次数避免意外丢失日志。
+主线程耗时 5.2s
 
 #### 比较于同步写十万次日志：
 
-![image](https://github.com/user-attachments/assets/c522d8a4-f112-442e-ba18-76e5540480c6)
+![image](https://github.com/user-attachments/assets/e6235730-4fe9-43c2-80b4-f3f5185f730e)
 
-同步耗时3.36s。这里的同步写操作系统的缓存区，由操作系统来调度的，刷新缓冲区次数最少。
+同步耗时4s:
 
+![image](https://github.com/user-attachments/assets/3772e9a3-79ee-4f79-b1cd-9097473a2960)
+
+如果每次都刷新缓冲区，耗时6s，频繁的IO带来的性能损耗其实没有想象中的大。
+
+可能是因为磁盘性能足够好（SSD），以及系统层面的文件缓存（Page Cache）或是标准库缓冲帮忙吸收磁盘写入压力了。
 
 测试代码：
 ```
@@ -61,19 +64,20 @@ int main(){
 #include "dbwg.log.h"
 #include<time.h>
 using namespace dbwg;
-
+#include <chrono>
 
 int main(){
     LOG("程序启动");
     int count = 1;
 
-    clock_t ct = clock();
+    LogStarter::instance();
+    auto start = std::chrono::high_resolution_clock::now();
+
     //创建log目录
     if (utils::mkdir("log", 0777) != 0) {//我的mkdir，即使存在也返回0
         perror("Error creating log directory");
         return 1;
     }
-
     FilesRoller files_roller;
     FILE*file = files_roller.roll_file();
     while(count <= 1000000){
@@ -82,12 +86,20 @@ int main(){
         if(count%111111 == 0){
             file = files_roller.roll_file();
         }
+        if(count % 100000 == 0){
+            fflush(file);
+        }
     }
     fflush(file);
-    ct = clock() -ct;
-    
-    std::cout << ct << std::endl;
+
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "墙上时间: " << duration << " 毫秒" << std::endl;
     return 0;
 }
 ```
+
+### 多线程同时写
+
 
