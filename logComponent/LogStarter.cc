@@ -1,13 +1,5 @@
 #include "LogStarter.hpp"
 
-struct FileCloser {
-    void operator()(FILE* file) const {
-        if (file) {
-            std::fclose(file);
-        }
-    }
-};
-
 // LogStarter 静态成员变量初始化
 bool dbwg::LogStarter::logThreadisRunning = false;
 
@@ -18,36 +10,50 @@ void dbwg::LogStarter::threadFunction_consumer(){
         return;
     }
     //先打开一个文件
-    std::unique_ptr<FILE,FileCloser> file(files_roller.roll_file());//每次启动,日志文件都会重新开始
-    if(file == NULL){
-        perror("Error opening file");
+    UniqueFD fileFd(files_roller.roll_file());//每次启动,日志文件都会重新开始
+    if (fileFd.get() == -1) {
+        perror("Error opening log file");
         return;
     }
-    int cur_size = 0;//当前文件大小，超了就要roll
+    if(ftruncate(fileFd.get(),_log_file_size) == -1){
+        perror("ftruncate failed");
+        return;
+    }
 
-    //开始工作
+    char* mapped = (char *)mmap(NULL, LOG_FILE_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fileFd.get(), 0);
+    if(mapped == MAP_FAILED){
+        perror("mmap failed");
+        return;
+    }
+
+    int cur_size = 0;//当前日志大小，超了就要roll
+    //# 开始工作
     while(logThreadisRunning){
-        if(!double_log_buffer.isBuffer1Full()){
-            std::unique_lock<std::mutex> lock(logMutex2);
-            cv2.wait(lock,[&]{return double_log_buffer.isBuffer1Full() || !logThreadisRunning;});//存在【虚假唤醒】：以确保线程不会因为等待条件变量而无限期地阻塞，错过一些重要的系统事件。
-        }
+        std::unique_lock<std::mutex> lock(logMutex2);
+        cv2.wait(lock,[&]{return double_log_buffer.isBuffer1Full() || !logThreadisRunning;});//存在【虚假唤醒】：以确保线程不会因为等待条件变量而无限期地阻塞，错过一些重要的系统事件。
+
+        int len = double_log_buffer.get_index();
         double_log_buffer.swap();
-        notify_producer();
 
-        int rs = fprintf(file.get(), "%s",double_log_buffer.getBuffer2().get());
-        if(rs<0)perror("[threadFunction_consumer] Error writing to file.\n");
-        fflush(file.get());
-
-        //roll-file 足够大时写文件
-        cur_size += rs;
-        if(cur_size >= _log_file_size){
-            file.reset(files_roller.roll_file());
-            if(file == NULL){
-                perror("[threadFunction_consumer]  Error opening file\n");
+        //足够大时滚动文件
+        if(cur_size+len >= _log_file_size){
+            munmap(mapped, LOG_FILE_SIZE);
+            fileFd.reset(files_roller.roll_file());
+            if(ftruncate(fileFd.get(),_log_file_size) == -1){
+                perror("ftruncate failed");
+                return;
+            }
+            mapped = (char *)mmap(NULL, LOG_FILE_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fileFd.get(), 0);
+            if(mapped == MAP_FAILED){
+                perror("mmap failed");
                 return;
             }
             cur_size = 0;
         }
+
+        memcpy(mapped + cur_size, double_log_buffer.getBuffer2().get(), len);
+        msync(mapped + cur_size, len, MS_SYNC);
+        cur_size += len;
     }
 }
 
@@ -102,9 +108,9 @@ void dbwg::LogStarter::log(std::string message,const char* file, int line,level:
     if(isRunning()){
         std::string log_msg_str = LogInfo(message,levl,file,line).logFormat();
         std::unique_lock<std::mutex>lock(logMutex1);
-        if(double_log_buffer.get_index() + log_msg_str.size() + 1 >= double_log_buffer.size()){
+        while(double_log_buffer.get_index() + log_msg_str.size() + 1 >= double_log_buffer.size()){
             notify_consumer();
-            cv1.wait(lock,[&]{return double_log_buffer.get_index() + log_msg_str.size() + 1 < double_log_buffer.size();});
+            //cv1.wait(lock,[&]{return double_log_buffer.get_index() + log_msg_str.size() + 1 < double_log_buffer.size();});
         }
 
         int cur_index = double_log_buffer.get_index();

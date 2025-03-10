@@ -6,6 +6,7 @@
 #include <string>
 #include <cstdlib>
 #include <unistd.h>
+#include <thread>
 #include "Level.hpp"
 #include "utils.hpp"
 #endif
@@ -19,12 +20,13 @@ namespace dbwg{
         //组织为字符串
         std::string logFormat();
     private:
-        std::string _time;
-        level::level _levl;
-        pid_t _pid;
-        std::string _filename;
-        int _line;
-        std::string _message;
+        std::string _time;//时间
+        level::level _levl;//日志等级
+        pid_t _pid;//进程id
+        std::thread::id thisId;//线程id
+        std::string _filename;//文件名
+        int _line;//行号
+        std::string _message;//内容
     };
 }
 
