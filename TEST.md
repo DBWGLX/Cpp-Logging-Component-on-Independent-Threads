@@ -97,7 +97,7 @@ int main(){
 
 貌似效率差异并不大~
 
-不同进程id:
+不同线程id:
 
 ![image](https://github.com/user-attachments/assets/1c1e3107-99f6-4995-803c-fddfac4e1ad8)
 
