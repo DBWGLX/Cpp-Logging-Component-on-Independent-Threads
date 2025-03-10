@@ -10,6 +10,8 @@
 
 ![image](https://github.com/user-attachments/assets/82811a28-05f2-4e0f-a234-e2de0ac9b4df)
 
+性能见TEST.md
+
 ---
 
 ### 滚动日志文件效果 roll log file effect
@@ -35,7 +37,7 @@ debug_str()/info_str()/warn_str()/error_str()/fatal_str() 适配std::string
 
 2. 日志文件自动创建，文件名为创建时间。文件为滚动文件的形式。<br>
 双缓冲区的每个大小，日志文件数目上限，日志文件大小默认大小在**logStarter.hpp**里设置宏即可调整。<br>
-默认1024字节缓冲区，1024个文件，日志文件一百万字节。程序每次运行会重新计数日志数目，达到上限后，最新的会覆盖最旧的。<br>
+默认 1e5 字节缓冲区，1024个文件，日志文件一百万字节。程序每次运行会重新计数日志数目，达到上限后，最新的会覆盖最旧的。<br>
 
 
 ---
