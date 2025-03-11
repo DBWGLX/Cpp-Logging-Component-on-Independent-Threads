@@ -43,7 +43,7 @@ namespace dbwg{
         size_t size(){
             return _size;
         }
-        void buffer1IsFull(){
+        void setBuffer1Full(){
             buff1IsFull = true;
         }
         int get_index(){

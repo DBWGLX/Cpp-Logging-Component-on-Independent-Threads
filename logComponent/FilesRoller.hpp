@@ -24,7 +24,7 @@ namespace dbwg{
             }
             //文件名
             rfns[rp] = "./log/LOGFILE_" + std::to_string(rp) + " " + dbwg::utils::now() + ".log";
-            UniqueFD fd = UniqueFD(open(rfns[rp].c_str(), O_RDWR | O_CREAT ,0644));//打开一个文件，外部可用智能指针来fclose
+            UniqueFD fd = UniqueFD(open(rfns[rp].c_str(), O_RDWR | O_CREAT ,0644));
             if(fd.get() == -1){
                 perror("[FilesRoller] file open failed\n");
             }
