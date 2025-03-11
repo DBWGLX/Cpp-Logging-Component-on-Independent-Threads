@@ -3,6 +3,7 @@
 #include "LogInfo.hpp"//日志体
 #include "LogStarter.hpp"//日志写
 #include "utils.hpp"//工具函数
+#include "SyncLogger.hpp"//同步写
 #include <cstdarg>
 #include <stdio.h>
 #include <string>

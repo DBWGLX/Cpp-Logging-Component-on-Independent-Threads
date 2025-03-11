@@ -1,0 +1,10 @@
+/root/work/EpollChatServer/logComponent/../cmake_out/lib/libasync_logger.so
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/dbwg_logger.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/DoubleBuffer.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/FilesRoller.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/Level.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/LogInfo.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/LogStarter.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/SyncLogger.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/UniqueFD.hpp
+/root/work/EpollChatServer/logComponent/../cmake_out/include/dbwg/utils.hpp

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "dbwg.log.h"
+#include "/root/work/EpollChatServer/cmake_out/include/dbwg/dbwg_logger.hpp"
 #include <time.h>
 #include <chrono>
 using namespace dbwg;
@@ -97,8 +97,6 @@ std::chrono::high_resolution_clock::time_point start;
 //多线程同步（用同一个日志器写）
 #include <thread>
 #include <vector>
-
-#include "SyncLogger.hpp"
 SyncLogger synclogger;
 
 void threadFunc(){

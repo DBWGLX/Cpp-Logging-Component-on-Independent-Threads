@@ -1,9 +1,13 @@
 # 记录一些指令
 
-#切换GCC版本 Software Collections
+# 切换GCC版本 Software Collections
 scl enable devtoolset-8 bash  
 
-g++ test.cc log.cc level.cpp -o test.out -std=c++11 -pthread -g 
+# 临时设置终端环境变量
+export LD_LIBRARY_PATH=/root/work/EpollChatServer/cmake_out/lib:$LD_LIBRARY_PATH
+
+# 编译指明动态库位置
+g++ test.cc -o test.out -std=c++17 -pthread -L /root/work/EpollChatServer/cmake_out/lib -lasync_logger -g 
 
 # 启动ssh代理
 eval $(ssh-agent -s) 

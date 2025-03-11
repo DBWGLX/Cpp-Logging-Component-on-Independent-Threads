@@ -1,0 +1,2 @@
+# 忽略cmake构建文件
+./logComponent/CMakeFiles
