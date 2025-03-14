@@ -3,6 +3,7 @@
 #include <iostream>
 #include <memory>
 #include <atomic>
+#include <cstdio>
 
 //生产者消费者双缓冲区
 //生产者生产buff1，消费者处理buff2。待消费者处理完，生产者生产满，做一次交换

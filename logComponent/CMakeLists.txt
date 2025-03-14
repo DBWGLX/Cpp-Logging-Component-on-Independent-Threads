@@ -6,6 +6,7 @@ project(AsyncLogger)
 
 # 设置 C++ 标准
 set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 # 添加头文件搜索路径
 include_directories(include include/dbwg)

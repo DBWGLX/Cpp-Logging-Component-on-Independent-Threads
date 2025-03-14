@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/work/EpollChatServer/logComponent
+CMAKE_SOURCE_DIR = /root/work/MyLogger/logComponent
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/work/EpollChatServer/logComponent
+CMAKE_BINARY_DIR = /root/work/MyLogger/logComponent
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -113,9 +113,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/work/EpollChatServer/logComponent/CMakeFiles /root/work/EpollChatServer/logComponent/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/work/MyLogger/logComponent/CMakeFiles /root/work/MyLogger/logComponent/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/work/EpollChatServer/logComponent/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/work/MyLogger/logComponent/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -261,6 +261,21 @@ src/UniqueFD.s:
 .PHONY : src/UniqueFD.s
 
 # target to build an object file
+src/dbwg_logger.o:
+	$(MAKE) -f CMakeFiles/async_logger.dir/build.make CMakeFiles/async_logger.dir/src/dbwg_logger.o
+.PHONY : src/dbwg_logger.o
+
+# target to preprocess a source file
+src/dbwg_logger.i:
+	$(MAKE) -f CMakeFiles/async_logger.dir/build.make CMakeFiles/async_logger.dir/src/dbwg_logger.i
+.PHONY : src/dbwg_logger.i
+
+# target to generate assembly for a file
+src/dbwg_logger.s:
+	$(MAKE) -f CMakeFiles/async_logger.dir/build.make CMakeFiles/async_logger.dir/src/dbwg_logger.s
+.PHONY : src/dbwg_logger.s
+
+# target to build an object file
 src/utils.o:
 	$(MAKE) -f CMakeFiles/async_logger.dir/build.make CMakeFiles/async_logger.dir/src/utils.o
 .PHONY : src/utils.o
@@ -309,6 +324,9 @@ help:
 	@echo "... src/UniqueFD.o"
 	@echo "... src/UniqueFD.i"
 	@echo "... src/UniqueFD.s"
+	@echo "... src/dbwg_logger.o"
+	@echo "... src/dbwg_logger.i"
+	@echo "... src/dbwg_logger.s"
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"
