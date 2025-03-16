@@ -2,9 +2,26 @@
 ![CODE SIZE](https://img.shields.io/github/languages/code-size/DBWGLX/Cpp-Logging-Component-on-Independent-Threads.svg)
 ![License](https://img.shields.io/github/license/DBWGLX/Cpp-Logging-Component-on-Independent-Threads.svg)
 
-# 独立线程异步写日志组件
+# C++ 异步日志器
 
 ### 简介
+
+在高并发应用中，日志系统的效率与稳定性至关重要。为此，我们设计了一款高性能的 C++ 日志器，它采用独立日志线程+双缓冲区的架构，确保日志写入既高效又可靠。
+
+#### 核心特性：
+
+- **独立日志线程**：<br>程序启动时创建**日志线程**，专职负责日志写入，不影响主业务逻辑。
+- **双缓冲区机制**：<br>日志内容经过格式化（包括事件、文件名、行号、日志等级、进程/线程 ID 等）后，存入双缓冲区。<br>
+当缓冲区写满或主动调用 flush 时，通知日志线程执行写入。<br>
+采用**锁 + 条件变量**同步机制，日志线程高效等待，收到信号后立即处理。
+- **日志文件管理**：<br>日志存储于 /log/ 目录，文件名按序号 + 时间自动生成。<br>
+**日志滚动**：单个文件达到设定容量后，自动创建新文件。<br>
+自动清理：当日志文件总数超限时，自动删除最早的日志文件，确保磁盘占用受控。
+- **安全退出**：<br>程序正常关闭时，日志器析构函数会通知日志线程完成所有写入，并等待线程安全退出，确保日志不丢失。
+
+#### 性能测试见TEST.md
+
+综合提升 10% 程序效率。
 
 #### 日志效果
 
@@ -12,7 +29,6 @@
 
 ![image](https://github.com/user-attachments/assets/82811a28-05f2-4e0f-a234-e2de0ac9b4df)
 
-#### 性能测试见TEST.md
 
 #### 滚动日志文件效果 roll log file effect
 
