@@ -35,6 +35,7 @@ namespace dbwg{
         //启动器启动后，调用方法log("")即可写日志。
         //此时会把日志先放入一个队列中
         void log(std::string message,const char* file = __FILE__, int line = __LINE__,level::level levl = level::DEBUG);
+        void flush();
     private:
         //消费者线程讲缓冲区内日志写入滚动文件
         void threadFunction_consumer();

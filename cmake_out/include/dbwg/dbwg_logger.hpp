@@ -14,6 +14,7 @@
 namespace dbwg{
     void log1(dbwg::level::level levl, const char* file, int line , const char* fmt, ...);
     void log1(dbwg::level::level levl, const char* file, int line , std::string str);
+    void flush();
 }
 
 
@@ -28,3 +29,5 @@ namespace dbwg{
 #define warn_str(fmt) dbwg::log1(dbwg::level::WARN, __FILE__, __LINE__, fmt);
 #define error_str(fmt) dbwg::log1(dbwg::level::ERROR, __FILE__, __LINE__, fmt);
 #define fatal_str(fmt) dbwg::log1(dbwg::level::FATAL, __FILE__, __LINE__, fmt);
+
+#define logger_flush() dbwg::flush();

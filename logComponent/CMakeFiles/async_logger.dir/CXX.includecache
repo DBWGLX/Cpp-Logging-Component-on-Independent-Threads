@@ -6,41 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/root/work/MyLogger/logComponent/src/DoubleBuffer.cpp
-DoubleBuffer.hpp
-/root/work/MyLogger/logComponent/src/DoubleBuffer.hpp
-
-/root/work/MyLogger/logComponent/src/FilesRoller.cpp
-FilesRoller.hpp
-/root/work/MyLogger/logComponent/src/FilesRoller.hpp
-
-/root/work/MyLogger/logComponent/src/Level.cpp
-Level.hpp
-/root/work/MyLogger/logComponent/src/Level.hpp
-
-/root/work/MyLogger/logComponent/src/LogInfo.cpp
-LogInfo.hpp
-/root/work/MyLogger/logComponent/src/LogInfo.hpp
-
 /root/work/MyLogger/logComponent/src/LogStarter.cpp
 LogStarter.hpp
 /root/work/MyLogger/logComponent/src/LogStarter.hpp
 
-/root/work/MyLogger/logComponent/src/SyncLogger.cpp
-SyncLogger.hpp
-/root/work/MyLogger/logComponent/src/SyncLogger.hpp
-
-/root/work/MyLogger/logComponent/src/UniqueFD.cpp
-UniqueFD.hpp
-/root/work/MyLogger/logComponent/src/UniqueFD.hpp
-
 /root/work/MyLogger/logComponent/src/dbwg_logger.cpp
 dbwg_logger.hpp
 /root/work/MyLogger/logComponent/src/dbwg_logger.hpp
-
-/root/work/MyLogger/logComponent/src/utils.cpp
-utils.hpp
-/root/work/MyLogger/logComponent/src/utils.hpp
 
 include/dbwg/DoubleBuffer.hpp
 iostream

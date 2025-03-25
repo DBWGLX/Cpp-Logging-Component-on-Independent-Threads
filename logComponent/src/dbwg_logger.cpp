@@ -19,3 +19,7 @@ void dbwg::log1(dbwg::level::level levl, const char* file, int line , const char
 void dbwg::log1(dbwg::level::level levl, const char* file, int line , std::string str){
     dbwg::LogStarter::instance().log(str,file,line,levl);
 }
+
+void dbwg::flush(){
+    dbwg::LogStarter::instance().flush();
+}
