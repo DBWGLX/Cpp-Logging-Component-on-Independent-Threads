@@ -100,12 +100,14 @@ void dbwg::LogStarter::log(std::string message,const char* file, int line,level:
         std::unique_lock<std::mutex>lock(logMutex1);
         while(double_log_buffer.get_index() + log_msg_str.size() + 1 >= double_log_buffer.size() || double_log_buffer.isBuffer1Full()){   //写不下，或者是满状态      
             if(log_msg_str.size() >= double_log_buffer.size()){
-                perror("[log] 日志过大，请增大日志组件缓冲区或减少日志内容");
+                perror("[logger] 日志过大，请增大日志组件缓冲区或减少日志内容");
+                std::cerr << "大日志：" << message.substr(0,50) << "..." << std::endl;
             }
             notify_consumer();//里面设置了满flag
             cv1.wait(lock,[&]{return !double_log_buffer.isBuffer1Full();});
         }
 
+        // 写入 写缓冲区
         int cur_index = double_log_buffer.get_index();
         std::shared_ptr<char[]> buffer = double_log_buffer.getBuffer1();
         memcpy(buffer.get()+cur_index, log_msg_str.c_str(),log_msg_str.size()+1);

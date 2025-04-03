@@ -1,30 +1,35 @@
 # The set of languages for which implicit dependencies are needed:
-SET(CMAKE_DEPENDS_LANGUAGES
+set(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
-SET(CMAKE_DEPENDS_CHECK_CXX
-  "/root/work/MyLogger/logComponent/src/DoubleBuffer.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/DoubleBuffer.o"
-  "/root/work/MyLogger/logComponent/src/FilesRoller.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/FilesRoller.o"
-  "/root/work/MyLogger/logComponent/src/Level.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/Level.o"
-  "/root/work/MyLogger/logComponent/src/LogInfo.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/LogInfo.o"
-  "/root/work/MyLogger/logComponent/src/LogStarter.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/LogStarter.o"
-  "/root/work/MyLogger/logComponent/src/SyncLogger.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/SyncLogger.o"
-  "/root/work/MyLogger/logComponent/src/UniqueFD.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/UniqueFD.o"
-  "/root/work/MyLogger/logComponent/src/dbwg_logger.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/dbwg_logger.o"
-  "/root/work/MyLogger/logComponent/src/utils.cpp" "/root/work/MyLogger/logComponent/CMakeFiles/async_logger.dir/src/utils.o"
+set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/DoubleBuffer.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/DoubleBuffer.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/FilesRoller.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/FilesRoller.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/Level.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/Level.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/LogInfo.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/LogInfo.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/LogStarter.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/LogStarter.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/SyncLogger.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/SyncLogger.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/UniqueFD.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/UniqueFD.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/dbwg_logger.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/dbwg_logger.o"
+  "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/src/utils.cpp" "/home/wyx/work/Cpp-Logging-Component-on-Independent-Threads/logComponent/CMakeFiles/async_logger.dir/src/utils.o"
   )
-SET(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# Targets to which this target links.
-SET(CMAKE_TARGET_LINKED_INFO_FILES
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "async_logger_EXPORTS"
   )
 
 # The include file search paths:
-SET(CMAKE_C_TARGET_INCLUDE_PATH
+set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "include"
   "include/dbwg"
   )
-SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-SET(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
